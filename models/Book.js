@@ -4,9 +4,29 @@ const { Schema } = mongoose;
 
 const bookSchema = new Schema(
 	{
-		title: { type: String, required: true },
-		author: { type: String, required: true },
+		title: {
+			type: String,
+			required: true,
+		},
+
+		author: {
+			type: String,
+			required: true,
+		},
+
+		image: String,
+
+		category: {
+			type: String,
+			enum: ['Art', 'Biography', 'Comics', 'Crime', 'Fantasy', 'Thriller', 'Travel'],
+		},
+
+		description: {
+			type: String,
+			required: true,
+		},
 	},
+
 	{
 		timestamps: {
 			createdAt: 'created_at',
