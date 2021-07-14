@@ -11,6 +11,7 @@ require('dotenv').config();
 
 const authRouter = require('./routes/auth');
 const demoRouter = require('./routes/demo');
+const booksRouter = require('./routes/books');
 
 async function setupApp() {
 	const app = express();
@@ -42,6 +43,7 @@ async function setupApp() {
 	);
 
 	app.use('/', authRouter);
+	app.use('/books', booksRouter);
 	app.use('/protected', demoRouter);
 
 	// catch 404 and forward to error handler
