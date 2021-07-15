@@ -103,6 +103,7 @@ router.post('/favs/:id', (req, res, next) => {
 // 		return next(error);
 // 	}
 // });
+// This is useful for nothing
 
 // router.post('/login', checkUsernameAndPasswordNotEmpty, async (req, res, next) => {
 // 	const { username, password } = res.locals.auth;
