@@ -32,6 +32,7 @@ async function run() {
 			useCreateIndex: true,
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
+			useFindAndModify: false, // added do to deprecations
 		});
 		console.log(`Database is connected ${dbPath}`);
 	} catch (error) {

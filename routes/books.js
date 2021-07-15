@@ -5,12 +5,12 @@ const router = express.Router();
 // const createError = require('http-errors');
 
 const Book = require('../models/Book');
-// Llamar al modelo Book
+const User = require('../models/User')
 
 /* GET books listing. */
 router.get('/', (req, res, next) => {
 	Book.find().then(books => {
-		res.json({ books });
+		res.json({ found: books });
 	});
 });
 
@@ -55,6 +55,23 @@ router.delete('/:id', (req, res, next) => {
 		});
 });
 });
+
+// revisar con Ale
+router.post('/favs/:id', (req, res, next) => {
+  const bookId = req.params.id;
+  const userId = req.session.currentUser._id;
+  User.findByIdAndUpdate(userId, { $push: { myBooks: bookId } })
+    .then(() => {
+			res.redirect('/books');
+
+      // console.log('added');
+    })
+    .catch(error => {
+      console.log('Problem adding');
+    });
+});
+
+
 
 // router.get('/', async (req, res, next) => {
 // 	if (req.session.currentUser) {
