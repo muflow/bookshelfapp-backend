@@ -16,7 +16,8 @@ const userSchema = new Schema(
 		},
 
 		myBooks: {
-			type: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
+			type: [mongoose.Schema.ObjectId],
+			ref: 'Book',
 		},
 	},
 	{

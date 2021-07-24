@@ -5,7 +5,7 @@ const router = express.Router();
 // const createError = require('http-errors');
 
 const Book = require('../models/Book');
-const User = require('../models/User')
+const User = require('../models/User');
 
 /* GET books listing. */
 router.get('/', (req, res, next) => {
@@ -53,25 +53,22 @@ router.delete('/:id', (req, res, next) => {
 		res.json({
 			deleted: deletedBook,
 		});
-});
+	});
 });
 
 // revisar con Ale
 router.post('/favs/:id', (req, res, next) => {
-  const bookId = req.params.id;
-  const userId = req.session.currentUser._id;
-  User.findByIdAndUpdate(userId, { $push: { myBooks: bookId } })
-    .then(() => {
-			res.redirect('/books');
-
-      // console.log('added');
-    })
-    .catch(error => {
-      console.log('Problem adding');
-    });
+	const bookId = req.params.id;
+	// eslint-disable-next-line no-underscore-dangle
+	const userId = req.session.currentUser._id;
+	User.findByIdAndUpdate(userId, { $push: { myBooks: bookId } })
+		.then(book => {
+			res.json({ book });
+		})
+		.catch(error => {
+			console.log('Problem adding', error);
+		});
 });
-
-
 
 // router.get('/', async (req, res, next) => {
 // 	if (req.session.currentUser) {
