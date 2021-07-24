@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const User = require('../models/User');
+const Book = require('../models/User');
 const { checkUsernameAndPasswordNotEmpty } = require('../middlewares'); //checkIfUserIsLoggedIn
 
 /* GET users listing (for admin purposes), optional */
@@ -27,16 +28,25 @@ router.put('/:id', (req, res, next) => {
 	});
 });
 
-// // My Books revisar con Ale
-router.get('/mybooks', (req, res, next) => {
-	const userId = req.session.currentUser.id;
-	User.findById(userId)
-		.populate('myBooks')
-		.then(dbUser => {
-			console.log(dbUser);
-			res.json({ userbooks: dbUser.myBooks });
-		})
-		.catch(error => next(error));
+// fav books
+router.post('user/favs/:id', async (req, res, next) => {
+	const loggedInUser = req.session.currentUser;
+	const user = await User.findById(loggedInUser._id);
+	const { id } = req.params;
+
+	user.favBooks.push(id);
+	user.save();
+	// Book.findById(id)
+	// 	.then(book => {
+	// 		if (book === null) {
+	// 			return res.status(404).json({ error: 'not found' });
+	// 		}
+	// 		return res.json({ title, author });
+	// 	})
+	// 	.catch(error => {
+	// 		next(error);
+	// 	});
+	res.status(201).json(user);
 });
 
 module.exports = router;

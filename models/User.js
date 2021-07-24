@@ -15,7 +15,7 @@ const userSchema = new Schema(
 			required: true,
 		},
 
-		myBooks: {
+		favBooks: {
 			type: [mongoose.Schema.ObjectId],
 			ref: 'Book',
 		},
