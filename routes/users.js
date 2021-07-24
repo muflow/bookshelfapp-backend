@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 const express = require('express');
 
 const router = express.Router();
 const User = require('../models/User');
-const Book = require('../models/User');
+// const Book = require('../models/User');
 const { checkUsernameAndPasswordNotEmpty } = require('../middlewares'); //checkIfUserIsLoggedIn
 
 /* GET users listing (for admin purposes), optional */
@@ -29,23 +30,29 @@ router.put('/:id', (req, res, next) => {
 });
 
 // fav books
-router.post('user/favs/:id', async (req, res, next) => {
+router.post('/favs/:id', async (req, res, next) => {
 	const loggedInUser = req.session.currentUser;
+	// eslint-disable-next-line no-underscore-dangle
 	const user = await User.findById(loggedInUser._id);
 	const { id } = req.params;
-
 	user.favBooks.push(id);
 	user.save();
-	// Book.findById(id)
-	// 	.then(book => {
-	// 		if (book === null) {
-	// 			return res.status(404).json({ error: 'not found' });
-	// 		}
-	// 		return res.json({ title, author });
-	// 	})
-	// 	.catch(error => {
-	// 		next(error);
-	// 	});
+	res.status(201).json(user);
+});
+
+// get user's favourite books
+router.get('/favs', async (req, res) => {
+	const loggedInUser = req.session.currentUser;
+	// eslint-disable-next-line no-underscore-dangle
+	const user = await User.findById(loggedInUser._id).populate('favBooks');
+	res.status(201).json(user);
+});
+
+// get user's favourite books
+router.get('/favids', async (req, res) => {
+	const loggedInUser = req.session.currentUser;
+	// eslint-disable-next-line no-underscore-dangle
+	const user = await User.findById(loggedInUser._id);
 	res.status(201).json(user);
 });
 
