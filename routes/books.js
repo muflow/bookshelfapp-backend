@@ -29,17 +29,17 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-	const { title, author, image, category, description } = req.body;
-	Book.create({ title, author, image, category, description }).then(book => {
+	const { title, author, category, description, imgUrl } = req.body;
+	Book.create({ title, author, category, description, imgUrl }).then(book => {
 		res.json({ created: book });
 	});
 });
 
 router.put('/:id', (req, res, next) => {
-	const { title, author } = req.body;
+	const { title, author, category, description, imgUrl } = req.body;
 	const { id } = req.params;
 
-	Book.findByIdAndUpdate(id, { title, author }, { new: true }).then(updatedBook => {
+	Book.findByIdAndUpdate(id, { title, author, category, description, imgUrl }, { new: true }).then(updatedBook => {
 		res.json({
 			updated: updatedBook,
 		});

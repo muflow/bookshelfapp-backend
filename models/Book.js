@@ -8,24 +8,22 @@ const bookSchema = new Schema(
 			type: String,
 			required: true,
 		},
-
 		author: {
 			type: String,
 			required: true,
 		},
-
-		image: String,
-
 		category: {
 			type: String,
 			enum: ['Art', 'Biography', 'Comics', 'Crime', 'Fantasy', 'Thriller', 'Travel'],
 		},
-
 		description: {
 			type: String,
 		},
+		imgUrl: {
+			type: String,
+			default: 'https://www.gimnasiodelnorte.edu.co/wp-content/uploads/2020/07/2cfc93d7665f5d7728782700e50596e3.png',
+		},
 	},
-
 	{
 		timestamps: {
 			createdAt: 'created_at',
