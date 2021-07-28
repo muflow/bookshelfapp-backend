@@ -15,6 +15,11 @@ const userSchema = new Schema(
 			required: true,
 		},
 
+		email: {
+			type: String,
+			unique: true,
+		},
+
 		favBooks: {
 			type: [mongoose.Schema.ObjectId],
 			ref: 'Book',
