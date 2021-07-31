@@ -30,9 +30,15 @@ router.get('/:id', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
 	const { title, author, category, description, imgUrl } = req.body;
-	Book.create({ title, author, category, description, imgUrl }).then(book => {
-		res.json({ created: book });
-	});
+	if (imgUrl.length === 0){
+		Book.create({ title, author, category, description }).then(book => {
+			res.json({ created: book });
+		});
+	} else {
+		Book.create({ title, author, category, description, imgUrl }).then(book => {
+			res.json({ created: book });
+		});
+	}
 });
 
 router.put('/:id', (req, res, next) => {
