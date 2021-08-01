@@ -21,7 +21,7 @@ const bookSchema = new Schema(
 		},
 		imgUrl: {
 			type: String,
-			default: 'https://www.gimnasiodelnorte.edu.co/wp-content/uploads/2020/07/2cfc93d7665f5d7728782700e50596e3.png',
+			default: 'https://www.pinclipart.com/picdir/big/169-1690579_book-icon-png-clip-art-transparent-download-book.png',
 		},
 	},
 	{
