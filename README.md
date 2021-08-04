@@ -1,107 +1,116 @@
-# Project Name
+# Project's name: Bookshelf
 
-## Instructions how to start
-
-create `.env` file like the example `.env.sample`
-
-start with `npm run start-dev`
-
-**http://localhost:5000**
 
 ## Description
 
-Describe your project in one/two lines.
+Bookshelf is a personal library where you can add books you would like to read, books you have read and add them to your virtual collections.
 
-## Motivation
-
-Just a litle API for educational purposes.
-
-## User Stories
+## USER STORIES (MVP)
 
 **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault
 
 **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
 
-**Homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
+**Splashscreen** - As a user I want to be able to access the landing page so that I see what the app is about and login and signup
 
-**Sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
+**Sign up** - As a user I want to be able to create an account to use the app and save my tasks
 
-**Login** - As a user I want to be able to log in on the webpage so that I can get back to my account
+**Login** - As a user I want to be able to log in on the webpage 
 
-**Logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
+**Logout** - As a user I want to be able to log out from the webpage
 
-**Events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
+**Profile** - As a user I want to be able to see my profile
 
-**Events create** - As a user I want to create an event so that I can invite others to attend
+**Create a new book** - As a user I want to be able to create a new book and add it to my personal collection
 
-**Events detail** - As a user I want to see the event details and attendee list of one event so that I can decide if I want to attend
+**Edit a book** - As a user I want to be able to edit a book that I created
 
-**Attend event** - As a user I want to be able to attend to event so that the organizers can count me in
+**Deleta a book** - As a user I want to be able to delete a book that I created
 
-## Backlog
+**Favorites** - As a user I want to be able to add books I like to 'Favorites'
 
-List of other features outside of the MVPs scope
+## BACKLOG
 
-User profile: - see my profile - upload my profile picture - see other users profile - list of events created by the user - list events the user is attending
+- Add a review to a book I've read
+- Rating a book
+- Find the nearest book stores directly from the app (Google map API)
+- Buy a book on amazon directly from the app
+- Where is my book? Books I have lent
+- Barcode scanner that lets you add books directly to my collections without having to search for them
 
-Geo Location: - add geolocation to events when creating - show event in a map in event detail page - show all events in a map in the event list page
 
-Homepage: - …
+## FRONTEND ROUTES
 
-## ROUTES:
+| Name            | Method | Endpoint                      | Description                                      | Body                                  |        |
+| --------------- | ------ | ----------------------------- | ------------------------------------------------ | ------------------------------------- | --------------- |
+| Home           | GET    | /books                            | view all books                              |                                       |                 |
+| Sign up    | POST   | /signup                        | Sign up a user with an account                          | {  username, email, password }                                   |              |
+| Log in          | POST   | /login                        | Log in the user                                  | { usernamel, password }                      |            |
+| Logout   | POST    | /logout                            | Logout a user                       |                          
+| Book details   | PUT    | /books/:id                            | View book details                      |            || Create Book   | POST    | /books                           | View form to create a new book                      | { title, author, category, description, imgUrl }                              |  |
+| Edit Book   | PUT    | /books/:id                          | Edit book form                     | {{ title, author, category, description, imgUrl }                    
+| Delete book   | DELETE    | /books/:id                         | Book delete button                      |       |         | Add to favorites   | POST    | /user/favs/:id                         | Add to favorite books button                      | 
+| User profile   | GET    | /user/favs/                         | See user profile                      |
 
-### Endpoints
+## MODELS
 
-| Method | Path         | description     | Body |
-| :----: | ------------ | --------------- | ---- |
-|  GET   | `/protected` | protected route |      |
+Book model
 
-### Auth
-
-| Method | Path      | description    | Body                     |
-| :----: | --------- | -------------- | ------------------------ |
-|  GET   | `/whoami` | who am i       |                          |
-|  POST  | `/signup` | signup a user  | `{ username, password }` |
-|  POST  | `/login`  | login a user   | `{ username, password }` |
-|  GET   | `/logout` | logout session |                          |
-
-## Models
+```js
+{
+    title: {
+        type:String,
+        required: true
+    }
+    author: {
+        Type:String,
+        required: true
+    }    
+    description: String,
+    imgUrl: {
+		type: String,
+		default: 'https://....png',
+		},
+	category: {
+		type: String,
+	}
+}
+```
 
 User model
 
-```javascript
+```js
 {
-	username: String;
-	password: String;
+    username: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+
+	hashedPassword: {
+		type: String,
+		required: true,
+	},
+
+	email: {
+		type: String,
+		unique: true,
+	},
+
+	favBooks: {
+		type: [mongoose.Schema.ObjectId],
+		ref: 'Book',
+	}
 }
 ```
 
-Event model
+## LINKS
 
-```javascript
-{
-	owner: ObjectId<User>
-	name: String
-	description: String
-	date: Date
-	location: String
-}
-```
+### Github project
 
-## Links
+- [Frontend project](https://github.com/muflow/bookshelfapp-frontend)
+- [Backend project](https://github.com/muflow/bookshelfapp-backend)
 
-### Trello
+### Deploy links
 
-Link to Trello
-
-### Git
-
-The url to your repository and to your deployed project
-
-[Repository Link](http://github.com/)
-
-[Deploy Link](http://heroku.com/)
-
-### Slides
-
-[Slides Link](http://slides.com/)
+- [Frontend deploy](https://bookshelfapplication.netlify.app/)
